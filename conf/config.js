@@ -1,6 +1,8 @@
 module.exports = {
   mapState: {
-    'storagePath': 'OrigoMapState' // Path to map state storage. Current path will save map state to a folder named OrigoMapState in the origo-server directory.
+    // Set from env to be able to set from web.config/server env
+    'storagePath': process.env.storagePath || 'OrigoMapState'
+    //'storagePath': 'OrigoMapState' // Path to map state storage. Current path will save map state to a folder named OrigoMapState in the origo-server directory.
   },
   getInskrivning: {
     url: "https://api.lantmateriet.se/distribution/produkter/inskrivning/v3",

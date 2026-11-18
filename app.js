@@ -1,3 +1,7 @@
+// Variabler från web.config ---------------------
+var myServerPort = process.env.serverPort;
+//------------------------------------------------
+
 var express = require('express');
 var path = require('path');
 var cors = require('cors');
@@ -24,7 +28,7 @@ const limiter = rateLimit({
 // apply rate limiter to all requests
 app.use(limiter);
 
-var server = app.listen(3001, function () {
+var server = app.listen( myServerPort || 3001, function () {
   var host = server.address().address
   var port = server.address().port
 
@@ -86,8 +90,10 @@ if (conf['cors']) {
   app.use(cors(corsOptions));
 }
 
-app.use('/origoserver/', routes);
-app.use('/mapstate', mapStateRouter);
+// We only use the mapstate router for now, but we might add more routes later
+// app.use('/origoserver/', routes);
+// hardcoded virtual path for mapstate router, since we don't have a config for this yet
+app.use('/origoserver/mapstate', mapStateRouter);
 if (conf['lmapiproxy']) {
   conf['lmapiproxy'].forEach(proxyAppConfig => app.use(`/lmap/${proxyAppConfig.id}`, lmApiProxy(proxyAppConfig)));
 }
