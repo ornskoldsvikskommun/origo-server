@@ -1,5 +1,5 @@
 // Variabler från web.config ---------------------
-var myServerPort = process.env.serverPort;
+var myServerPort = process.env.PORT || process.env.serverPort; // PORT is set by iisnode (named pipe), serverPort when run standalone
 //------------------------------------------------
 
 var express = require('express');
